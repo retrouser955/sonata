@@ -1,0 +1,12 @@
+{
+    "name": "eris-player-bot",
+    "version": "0.0.1-beta",
+    "dependencies": {
+        "@eris-player/plugins": "workspace:^",
+        "eris": "^0.17.2",
+        "eris-player": "workspace:^"
+    },
+    "scripts": {
+        "build": "tsup"
+    }
+}

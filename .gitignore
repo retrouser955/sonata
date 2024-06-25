@@ -1,0 +1,5 @@
+node_modules/
+apps/bot/dist/
+packages/eris-player/dist/
+packages/plugins/dist
+.yarn/cache

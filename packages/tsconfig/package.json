@@ -1,0 +1,14 @@
+{
+    "name": "@eris-player/tsconfig",
+    "description": "Typescript configurations for other packages in this repo",
+    "files": [
+        "typescript.json"
+    ],
+    "devDependencies": {
+        "typescript": "^5.4.5"
+    },
+    "scripts": {
+        "build": "echo \"No need to build tsconfig\""
+    },
+    "version": "0.0.1-beta"
+}

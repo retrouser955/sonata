@@ -1,0 +1,23 @@
+{
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "name": "eris-player-repos",
+  "version": "0.0.1",
+  "description": "A music package for Eris.js",
+  "main": "dist/index.js",
+  "author": "retro_ig",
+  "license": "Creative Commons",
+  "packageManager": "yarn@4.2.2",
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "tsup": "^8.1.0"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
