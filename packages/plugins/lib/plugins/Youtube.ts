@@ -1,6 +1,6 @@
 import { BasePlugin, PluginReturnSearch, Track, Playlist, Util } from "sonata.js"
 import Innertube, { UniversalCache, OAuth2Tokens } from "youtubei.js"
-import { Video } from "youtubei.js/dist/src/parser/nodes";
+import { type Video } from "youtubei.js/dist/src/parser/nodes";
 import { SourceRegex } from "../Constants/Regex";
 import { URL } from "url";
 
