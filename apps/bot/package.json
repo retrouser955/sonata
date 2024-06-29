@@ -1,10 +1,10 @@
 {
-    "name": "eris-player-bot",
+    "name": "sonatajs-bot",
     "version": "0.0.1-beta",
     "dependencies": {
-        "@eris-player/plugins": "workspace:^",
+        "@sonatajs/plugins": "workspace:^",
         "eris": "^0.17.2",
-        "eris-player": "workspace:^"
+        "sonata.js": "workspace:^"
     },
     "scripts": {
         "build": "tsup"

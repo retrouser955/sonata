@@ -1,7 +1,7 @@
 {
-    "name": "@eris-player/tests",
+    "name": "@sonatajs/tests",
     "version": "0.0.1-beta",
     "dependencies": {
-        "eris-player": "workspace:^"
+        "sonata.js": "workspace:^"
     }
 }

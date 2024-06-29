@@ -1,5 +1,5 @@
 {
-    "name": "@eris-player/tsconfig",
+    "name": "@sonatajs/tsconfig",
     "description": "Typescript configurations for other packages in this repo",
     "files": [
         "typescript.json"

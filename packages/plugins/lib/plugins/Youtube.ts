@@ -1,4 +1,4 @@
-import { BasePlugin, PluginReturnSearch, Track, Playlist, Util } from "eris-player"
+import { BasePlugin, PluginReturnSearch, Track, Playlist, Util } from "sonata.js"
 import Innertube, { UniversalCache, OAuth2Tokens } from "youtubei.js"
 import { Video } from "youtubei.js/dist/src/parser/nodes";
 import { SourceRegex } from "../Constants/Regex";
@@ -19,7 +19,7 @@ const YOUTUBE_INNER_REGEX = {
  */
 export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
     youtube!: Innertube
-    name: string = "com.eris-player.youtubeplugin";
+    name: string = "com.sonata.youtubeplugin";
 
     /**
      * Validate if string is a YouTube URL
@@ -40,7 +40,7 @@ export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
                     ...init // TODO: IMPLEMENT IP ROTATION
                 })
             },
-            cache: new UniversalCache(true, this.options.cache ?? `${process.cwd()}/.eris-player/youtube/.cache`)
+            cache: new UniversalCache(true, this.options.cache ?? `${process.cwd()}/.sonata/youtube/.cache`)
         })
 
         if(this.options.credentials) {

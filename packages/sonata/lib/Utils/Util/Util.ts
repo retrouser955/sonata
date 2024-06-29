@@ -28,13 +28,13 @@ export class Util {
                 f: format || "s16le",
                 acodec: format === "opus" ? "libopus" : "pcm_s16le",
             }),
-            "pipe:"
+            "pipe:1"
         ]
 
         let returnStream: internal.Readable
         
         if(typeof stream !== "string") {
-            ffmpegArgs.push("-i", "pipe:")
+            ffmpegArgs.push("-i", "pipe:0")
 
             ffmpegProcess.spawnProcess(...ffmpegArgs)
 

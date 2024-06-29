@@ -1,7 +1,7 @@
 {
     "entryPointStrategy": "packages",
     "entryPoints": [
-        "packages/eris-player",
+        "packages/sonata",
         "packages/plugins",
     ],
     "readme": "none",

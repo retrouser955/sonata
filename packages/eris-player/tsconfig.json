@@ -1,4 +1,0 @@
-{
-    "extends": "@eris-player/tsconfig/typescript.json",
-    "include": ["./lib/**/*.ts"]
-}

@@ -1,8 +1,8 @@
-import { BasePlugin } from "eris-player";
+import { BasePlugin } from "sonata.js";
 import { SourceRegex } from "../Constants/Regex";
 
 export class DeezerPlugin extends BasePlugin<null> {
-    name: string = "eris-player-defaults.deezerplugin"
+    name: string = "sonata-defaults.deezerplugin"
 
     validate(query: string): boolean {
         for(let regex of SourceRegex.deezer) {

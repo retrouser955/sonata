@@ -17,33 +17,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eris-player/plugins@workspace:^, @eris-player/plugins@workspace:packages/plugins":
-  version: 0.0.0-use.local
-  resolution: "@eris-player/plugins@workspace:packages/plugins"
-  dependencies:
-    "@eris-player/tsconfig": "workspace:^"
-    eris-player: "workspace:^"
-    tsup: "npm:^8.1.0"
-    youtubei.js: "npm:^10.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@eris-player/tests@workspace:apps/test":
-  version: 0.0.0-use.local
-  resolution: "@eris-player/tests@workspace:apps/test"
-  dependencies:
-    eris-player: "workspace:^"
-  languageName: unknown
-  linkType: soft
-
-"@eris-player/tsconfig@workspace:^, @eris-player/tsconfig@workspace:packages/tsconfig":
-  version: 0.0.0-use.local
-  resolution: "@eris-player/tsconfig@workspace:packages/tsconfig"
-  dependencies:
-    typescript: "npm:^5.4.5"
-  languageName: unknown
-  linkType: soft
-
 "@esbuild/aix-ppc64@npm:0.21.5":
   version: 0.21.5
   resolution: "@esbuild/aix-ppc64@npm:0.21.5"
@@ -443,6 +416,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sonatajs/plugins@workspace:^, @sonatajs/plugins@workspace:packages/plugins":
+  version: 0.0.0-use.local
+  resolution: "@sonatajs/plugins@workspace:packages/plugins"
+  dependencies:
+    "@sonatajs/tsconfig": "workspace:^"
+    sonata.js: "workspace:^"
+    tsup: "npm:^8.1.0"
+    youtubei.js: "npm:^10.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@sonatajs/tests@workspace:apps/test":
+  version: 0.0.0-use.local
+  resolution: "@sonatajs/tests@workspace:apps/test"
+  dependencies:
+    sonata.js: "workspace:^"
+  languageName: unknown
+  linkType: soft
+
+"@sonatajs/tsconfig@workspace:^, @sonatajs/tsconfig@workspace:packages/tsconfig":
+  version: 0.0.0-use.local
+  resolution: "@sonatajs/tsconfig@workspace:packages/tsconfig"
+  dependencies:
+    typescript: "npm:^5.4.5"
+  languageName: unknown
+  linkType: soft
+
 "@types/estree@npm:1.0.5":
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
@@ -798,41 +798,6 @@ __metadata:
   checksum: 10/65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
   languageName: node
   linkType: hard
-
-"eris-player-bot@workspace:apps/bot":
-  version: 0.0.0-use.local
-  resolution: "eris-player-bot@workspace:apps/bot"
-  dependencies:
-    "@eris-player/plugins": "workspace:^"
-    eris: "npm:^0.17.2"
-    eris-player: "workspace:^"
-  languageName: unknown
-  linkType: soft
-
-"eris-player-repos@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "eris-player-repos@workspace:."
-  dependencies:
-    "@types/node": "npm:^20.14.2"
-    cross-spawn: "npm:^7.0.3"
-    tsup: "npm:^8.1.0"
-    typedoc: "npm:^0.26.2"
-    typedoc-plugin-markdown: "npm:^4.1.0"
-  languageName: unknown
-  linkType: soft
-
-"eris-player@workspace:^, eris-player@workspace:packages/eris-player":
-  version: 0.0.0-use.local
-  resolution: "eris-player@workspace:packages/eris-player"
-  dependencies:
-    "@eris-player/plugins": "workspace:^"
-    "@eris-player/tsconfig": "workspace:^"
-    eris: "npm:^0.17.2"
-    ffmpeg-static: "npm:^5.2.0"
-    tiny-typed-emitter: "npm:^2.1.0"
-    tsup: "npm:^8.1.0"
-  languageName: unknown
-  linkType: soft
 
 "eris@npm:^0.17.2":
   version: 0.17.2
@@ -1961,6 +1926,41 @@ __metadata:
   checksum: 10/ffcb622c22481dfcd7589aae71fbfd71ca34334064d181df64bf8b7feaeee19706aba4cffd1de35cc7bbaeeaa0af96be2d7f40fcbc7bc0ab69533a7ae9ffc4fb
   languageName: node
   linkType: hard
+
+"sonata-repos@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "sonata-repos@workspace:."
+  dependencies:
+    "@types/node": "npm:^20.14.2"
+    cross-spawn: "npm:^7.0.3"
+    tsup: "npm:^8.1.0"
+    typedoc: "npm:^0.26.2"
+    typedoc-plugin-markdown: "npm:^4.1.0"
+  languageName: unknown
+  linkType: soft
+
+"sonata.js@workspace:^, sonata.js@workspace:packages/sonata":
+  version: 0.0.0-use.local
+  resolution: "sonata.js@workspace:packages/sonata"
+  dependencies:
+    "@sonatajs/plugins": "workspace:^"
+    "@sonatajs/tsconfig": "workspace:^"
+    eris: "npm:^0.17.2"
+    ffmpeg-static: "npm:^5.2.0"
+    tiny-typed-emitter: "npm:^2.1.0"
+    tsup: "npm:^8.1.0"
+  languageName: unknown
+  linkType: soft
+
+"sonatajs-bot@workspace:apps/bot":
+  version: 0.0.0-use.local
+  resolution: "sonatajs-bot@workspace:apps/bot"
+  dependencies:
+    "@sonatajs/plugins": "workspace:^"
+    eris: "npm:^0.17.2"
+    sonata.js: "workspace:^"
+  languageName: unknown
+  linkType: soft
 
 "source-map@npm:0.8.0-beta.0":
   version: 0.8.0-beta.0

@@ -1,5 +1,5 @@
 {
-  "name": "eris-player",
+  "name": "sonata.js",
   "version": "0.0.1",
   "description": "A music package for Eris.js",
   "main": "dist/index.js",
@@ -7,12 +7,12 @@
   "license": "Creative Commons",
   "packageManager": "yarn@4.2.2",
   "dependencies": {
-    "@eris-player/plugins": "workspace:^",
-    "@eris-player/tsconfig": "workspace:^",
     "ffmpeg-static": "^5.2.0",
     "tiny-typed-emitter": "^2.1.0"
   },
   "devDependencies": {
+    "@sonatajs/plugins": "workspace:^",
+    "@sonatajs/tsconfig": "workspace:^",
     "eris": "^0.17.2",
     "tsup": "^8.1.0"
   },

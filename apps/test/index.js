@@ -1,3 +1,3 @@
-const { Util } = require("eris-player")
+const { Util } = require("sonata.js")
 
 console.log(Util.createTimeCode(1e+6))

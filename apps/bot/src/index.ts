@@ -1,5 +1,5 @@
 import Eris from "eris"
-import { MuiscEvents, MusicClient } from "eris-player"
+import { MuiscEvents, MusicClient } from "sonata.js"
 
 const client = new Eris.Client("", {
     intents: [

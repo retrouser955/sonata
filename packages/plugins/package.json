@@ -1,20 +1,20 @@
 {
-    "name": "@eris-player/plugins",
+    "name": "@sonatajs/plugins",
     "version": "0.0.1",
-    "description": "A collection of sources for eris-player",
+    "description": "A collection of sources for sonata.js",
     "main": "dist/index.js",
     "author": "retro_ig",
     "license": "Creative Commons",
     "packageManager": "yarn@4.2.2",
     "dependencies": {
-        "@eris-player/tsconfig": "workspace:^",
         "youtubei.js": "^10.0.0"
     },
     "scripts": {
         "build": "tsup"
     },
     "devDependencies": {
-        "eris-player": "workspace:^",
+        "@sonatajs/tsconfig": "workspace:^",
+        "sonata.js": "workspace:^",
         "tsup": "^8.1.0"
     }
 }

@@ -3,7 +3,7 @@
     "packages/*",
     "apps/*"
   ],
-  "name": "eris-player-repos",
+  "name": "sonata-repos",
   "version": "0.0.1",
   "description": "A music package for Eris.js",
   "main": "dist/index.js",
