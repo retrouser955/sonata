@@ -12,7 +12,9 @@
   "packageManager": "yarn@4.2.2",
   "devDependencies": {
     "@types/node": "^20.14.2",
-    "tsup": "^8.1.0"
+    "tsup": "^8.1.0",
+    "typedoc": "^0.26.2",
+    "typedoc-plugin-markdown": "^4.1.0"
   },
   "dependencies": {
     "cross-spawn": "^7.0.3"

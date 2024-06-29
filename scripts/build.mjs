@@ -10,27 +10,25 @@ const buildInfoMessage = (message) => `[2;34m[[0mINFO[2;34m][0m ${message}`
 
 const spawnChildProcess = (command, args, cwd) => {
     return new Promise((resolve, reject) => {
-        let output = ""
-
-        const process = spawn(command, args, {
+        const cp = spawn(command, args, {
             cwd,
             env: {
                 FORCE_COLOR: "1"
             }
         })
 
-        process.on("exit", (code) => {
+        cp.on("exit", (code) => {
             if(code !== 0) reject("Something went wrong")
 
-            resolve(output.trim())
+            resolve()
         })
 
-        process.on("error", (err) => {
+        cp.on("error", (err) => {
             reject(err.message.toString())
         })
 
-        process.stdout.on("data", (data) => {
-            output += data
+        cp.stdout.on("data", (data) => {
+            process.stdout.write(data)
         })
     })
 }
@@ -62,13 +60,12 @@ for(let pkg of packages) {
         continue;
     }
 
-    console.log(buildInfoMessage(`Started building ${packageInfo.name}@${packageInfo.version} ...`))
+    console.log(buildInfoMessage(`Started building ${packageInfo.name}@${packageInfo.version} ...\n`))
 
     try {
-        const logs = await spawnChildProcess('yarn', ['build'], `${packageDir}/${pkg}`)
+        await spawnChildProcess('yarn', ['build'], `${packageDir}/${pkg}`)
 
-        console.log(buildInfoMessage(`Finished building ${packageInfo.name}@${packageInfo.version}`))
-        console.log(`\nLOGS ${packageInfo.name}@${packageInfo.version}\n${logs}`)
+        console.log(`\n${buildInfoMessage(`Finished building ${packageInfo.name}@${packageInfo.version}`)}`)
         successfulPackages++
     } catch (error) {
         console.log(buildErrorMessage(`Unable to build ${packageInfo.name}@${packageInfo.version}. Got error: ${error.toString()}`))

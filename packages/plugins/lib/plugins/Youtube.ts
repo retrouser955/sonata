@@ -21,10 +21,18 @@ export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
     youtube!: Innertube
     name: string = "com.eris-player.youtubeplugin";
 
+    /**
+     * Validate if string is a YouTube URL
+     * @param query
+     * @returns 
+     */
     validate(query: string): boolean {
         return SourceRegex.youtube.test(query)
     }
 
+    /**
+     * Initialise the plugin
+     */
     async init() {
         this.youtube = await Innertube.create({
             fetch: (i, init) => {

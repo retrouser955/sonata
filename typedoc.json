@@ -1,0 +1,9 @@
+{
+    "entryPointStrategy": "packages",
+    "entryPoints": [
+        "packages/eris-player",
+        "packages/plugins",
+    ],
+    "readme": "none",
+    "skipErrorChecking": true
+}

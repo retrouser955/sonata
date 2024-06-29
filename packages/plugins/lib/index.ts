@@ -9,6 +9,9 @@ const exit = (message: any, clean: boolean) => {
     throw new Error(message)
 } 
 
+/**
+ * Get the YouTube authentication token
+ */
 export async function generateYouTubeCookie() {
     const youtube = await Innertube.create()
 
