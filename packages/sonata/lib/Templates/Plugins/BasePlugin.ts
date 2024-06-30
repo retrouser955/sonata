@@ -19,11 +19,11 @@ export class BasePlugin<T> {
         throw new Error("Not implemented")
     }
 
-    validate(query: string): boolean {
+    validate(query: string, isTextBased: boolean = false): boolean {
         throw new Error("Not implemented")
     }
 
-    async search(query: string): Promise<PluginReturnSearch> {
+    async search(query: string, isTextBased: boolean = false): Promise<PluginReturnSearch> {
         throw new Error("Not implemented")
     }
 }

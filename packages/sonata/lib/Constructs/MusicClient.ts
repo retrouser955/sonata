@@ -10,6 +10,7 @@ import { setMusicClient } from "../helpers/helpers"
 import { AsyncLocalStorage } from "async_hooks"
 import { Util } from "../Utils/Util/Util"
 import { FFmpegLocatingAgent } from "../Constants/ValidFFmpegLibs"
+import { BaseCache } from "../Cache/BaseCache"
 
 export enum MuiscEvents {
     QueueCreate = "createQueue",
@@ -45,6 +46,7 @@ export interface LibOptions {
     debug?: boolean;
     plugins?: BasePlugin<unknown>[];
     ffmpeg?: FFmpegLocatingAgent;
+    cache?: BaseCache
 }
 
 export interface SearchOptions {
@@ -73,7 +75,57 @@ export class MusicClient extends TypedEmitter<TypedMusicEvents> {
         console.log(`[2;34m[[2;37mDEBUG | ERIS PLAYER[0m[2;34m] | [2;30m${message.join("")}[0m[2;34m[2;37m[0m[2;34m[0m`)
     }
 
-    async search(query: string, options: SearchOptions = {}) {
+    _isTextBased(query: string) {
+        try {
+            new URL(query)
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    async search(query: string, options: SearchOptions = {}): Promise<SearchResults> {
+        if(this.options.cache) {
+            this.debug(`Searching for ${query} in cache`)
+            const q = await this.options.cache.get(query)
+            if(q) return q
+        }
+
+        this.debug(`Cache miss for ${query}`)
+        if(query.startsWith("exec://com.")) {
+            const [pluginUID, text] = query.replace("exec://", "").split(":::")
+
+            if(!text) throw new Error("No query found. `query` is undefined!")
+
+            this.debug("DETECTED MUST FOLLOW RULE exec.")
+            const plugin = this.plugins.get(pluginUID)
+            if(plugin) {
+                const isText = this._isTextBased(text)
+
+                this.debug(`Executing plugin: ${pluginUID}`)
+                
+                if(plugin.validate(text, isText)) {
+                    const results = await plugin.search(text, isText)
+
+                    const searchRes = new SearchResults({
+                        plugin: plugin.name,
+                        playlist: results.playlist,
+                        tracks: results.tracks
+                    })
+
+                    if(results.tracks.length > 0 && this.options.cache) this.options.cache.set(query, searchRes) 
+                    
+                    return searchRes
+                }
+
+                this.debug(`Attempted to query using ${pluginUID}. plugin rejected your query.`)
+            }
+
+            this.debug(`unable to find ${pluginUID} going ahead with default queries`)
+        }
+
+        const isTextBased = this._isTextBased(query)
+
         const allPlugins = this.plugins.getAll()
 
         const filterFunction = (plugin: BasePlugin<unknown>) => {
@@ -84,9 +136,9 @@ export class MusicClient extends TypedEmitter<TypedMusicEvents> {
         const validPlugins = options.filter ? allPlugins.filter(filterFunction) : allPlugins
 
         for(let plugin of validPlugins) {
-            if(!plugin.validate(query)) continue;
+            if(!plugin.validate(query, isTextBased)) continue;
 
-            const search = await plugin.search(query).catch((err) => {
+            const search = await plugin.search(query, isTextBased).catch((err) => {
                 this.debug(err)
                 return null
             })
@@ -95,12 +147,22 @@ export class MusicClient extends TypedEmitter<TypedMusicEvents> {
 
             if(search.tracks.length === 0) continue;
 
-            return new SearchResults({
+            const res = new SearchResults({
                 plugin: plugin.name,
-                playlist: search?.playlist,
-                tracks: search!.tracks,
+                playlist: search.playlist,
+                tracks: search.tracks,
             })
+
+            if(this.options.cache) this.options.cache.set(query, res)
+
+            return res
         }
+
+        return new SearchResults({
+            plugin: "unable to find a proper plugin",
+            playlist: null,
+            tracks: []
+        })
     }
 
     generateLibraryAnalysis() {

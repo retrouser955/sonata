@@ -26,8 +26,8 @@ export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
      * @param query
      * @returns 
      */
-    validate(query: string): boolean {
-        return SourceRegex.youtube.test(query)
+    validate(query: string, isTextBased: boolean = false): boolean {
+        return SourceRegex.youtube.test(query) || isTextBased == true
     }
 
     /**
@@ -68,8 +68,8 @@ export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
             duration: video.duration.text,
             durationRaw: video.duration.seconds * 1000,
             async stream() {
-                const info = await youtube.getBasicInfo(this.url.replace("https://youtube.com/watch?v=", ""))
-                const fmt = info.chooseFormat({ type: "audio", quality: "best" })
+                const info = await youtube.getBasicInfo(new URL(this.url).searchParams.get("v")!)
+                const fmt = info.chooseFormat({ type: "audio", quality: "best", format: "mp4" })
                 return fmt.decipher(youtube.session.player)
             },
             async requestBridgeContent() {
@@ -80,7 +80,22 @@ export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
         })
     }
 
-    async search(query: string): Promise<PluginReturnSearch> {
+    async search(query: string, isTextBased: boolean = false): Promise<PluginReturnSearch> {
+        if(isTextBased) {
+            const search = await this.youtube.search(query, {
+                type: "video"
+            })
+    
+            const tracks = (search.results as any as Video[]).map((video) => {
+                return this.buildTrackFromVideo(video)
+            })
+    
+            return {
+                playlist: null,
+                tracks
+            }
+        }
+
         if(YOUTUBE_INNER_REGEX.playlist.test(query)) {
             const playlist = new URL(query)
             const playlistID = playlist.searchParams.get("list")
@@ -122,17 +137,41 @@ export class YoutubePlugin extends BasePlugin<YouTubePluginOptions> {
             }
         }
 
-        const search = await this.youtube.search(query, {
-            type: "video"
-        })
+        const url = new URL(query)
 
-        const tracks = (search.results as any as Video[]).map((video) => {
-            return this.buildTrackFromVideo(video)
+        if(!url.searchParams.get("v")) return { playlist: null, tracks: [] }
+
+        const info = await this.youtube.getInfo(url.searchParams.get("v")!)
+        const { basic_info } = info
+        const durationMS = (basic_info.duration ?? 0) * 1000
+        const youtube = this.youtube
+
+        const track = new Track({
+            name: basic_info.title ?? "UNKNOWN TITLE",
+            thumbnail: basic_info.thumbnail?.at(0)?.url ?? "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png",
+            artists: [
+                {
+                    name: basic_info.channel?.name || "UNKNOWN CHANNEL",
+                    thumbnail: basic_info.channel?.url || "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png"
+                }
+            ],
+            duration: Util.createTimeCode(durationMS),
+            durationRaw: durationMS,
+            async stream() {
+                const format = info.chooseFormat({ quality: "best", format: "mp4", type: "audio" })
+                return format.decipher(youtube.session.player)  
+            },
+            async requestBridgeContent() {
+                return `${this.artists.map((v) => v.name).join(", ")} - ${this.name}`
+            },
+            source: "youtube",
+            url: query,
+            popularity: basic_info.view_count
         })
 
         return {
             playlist: null,
-            tracks
+            tracks: [track]
         }
     }
 }

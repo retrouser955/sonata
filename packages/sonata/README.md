@@ -4,4 +4,4 @@
 
 A powerful library providing easy to use APIs to create a music bot using [Eris](https://www.npmjs.com/package/eris)
 
-![eris player logo](./assets/Sonata.png)
+![eris player logo](../../assets/Sonata.png)
